@@ -2,14 +2,16 @@
 
 import { useState, useEffect } from "react";
 import styles from './sumas.module.css'; // Importamos el archivo CSS
+import { useNombre } from '../../context/NombreContext'; // Importa el hook del contexto
 
 export default function Sumas() {
+  const { nombre } = useNombre(); // Accede al nombre desde el contexto global
+
   const [a, setA] = useState(null);
   const [b, setB] = useState(null);
   const [resultado, setResultado] = useState(null);
   const [respuestaUsuario, setRespuestaUsuario] = useState("");
   const [mensaje, setMensaje] = useState("");
-  const [nombre, setNombre] = useState("");
 
  
 

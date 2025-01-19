@@ -1,5 +1,7 @@
+// layout.js
+
+import { NombreProvider } from './context/NombreContext'; // Importa el NombreProvider
 import { Geist, Geist_Mono } from "next/font/google";
-import { NombreProvider } from './context/NombreContext'; // Asegúrate de importar el NombreProvider
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,8 +23,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {/* Envuelve el contenido de la aplicación con el NombreProvider */}
-        <NombreProvider>
+        <NombreProvider>  {/* Asegúrate de envolver toda la app con NombreProvider */}
           {children}
         </NombreProvider>
       </body>

@@ -1,28 +1,30 @@
 "use client";
-import React, { useState } from 'react';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { useNombre } from '../../context/NombreContext'; // Cambié la ruta para asegurarme de que sea correcta
+import { useNombre } from '../../context/NombreContext'; // Importa el hook del contexto
 import styles from './inicio.module.css'; // Importa el archivo CSS para el diseño
 
 export default function Inicio() {
   const [inputNombre, setInputNombre] = useState('');
   const { nombre, setNombre } = useNombre(); // Accede al nombre y la función para actualizarlo
 
-  // Función para manejar el submit del formulario y guardar el nombre
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setNombre(inputNombre); // Establece el nombre en el contexto
+  // Función para manejar el cambio en el input y actualizar el nombre en el contexto
+  const handleChange = (e) => {
+    const value = e.target.value;
+    setInputNombre(value); // Actualiza el estado local del input
+    setNombre(value); // Actualiza el nombre en el contexto inmediatamente
   };
 
   return (
     <div className={styles.pageContainer}>
       <h2 className={styles.title}>Bienvenido a Calculando</h2>
-      <form onSubmit={handleSubmit} className={styles.form}>
+      <form className={styles.form}>
         <input
           type="text"
           placeholder="Ingrese su nombre"
           value={inputNombre}
-          onChange={(e) => setInputNombre(e.target.value)} // Actualiza el nombre en el input
+          onChange={handleChange} // Actualiza el nombre en el contexto directamente al cambiar el input
           required
           className={styles.input}
         />

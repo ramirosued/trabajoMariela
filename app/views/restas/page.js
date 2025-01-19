@@ -1,3 +1,5 @@
+// restas/page.js
+
 "use client";
 
 import { useState, useEffect } from "react";
@@ -5,13 +7,12 @@ import { useNombre } from '../../context/NombreContext'; // Importa el hook del 
 import styles from './restas.module.css'; // Importamos el archivo CSS
 
 export default function Restas() {
-  const { nombre } = useNombre(); // Accede al nombre desde el contexto global
-
   const [a, setA] = useState(null);
   const [b, setB] = useState(null);
   const [resultado, setResultado] = useState(null);
   const [respuestaUsuario, setRespuestaUsuario] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const { nombre } = useNombre(); // Accede al nombre desde el contexto
 
   const asignarNumero = () => {
     const numA = Math.floor(Math.random() * 101); 
@@ -24,7 +25,7 @@ export default function Restas() {
   };
 
   const verificarRespuesta = (e) => {
-    e.preventDefault(); // Evita que el formulario recargue la página
+    e.preventDefault();
     if (parseInt(respuestaUsuario, 10) === resultado) {
       setMensaje("¡Correcto! 🎉");
       setTimeout(() => {
@@ -42,7 +43,7 @@ export default function Restas() {
 
   return (
     <div className={styles.pageContainer}>
-      <h1 className={styles.title}>Bienvenido, {nombre}!</h1> {/* Mostrar nombre desde contexto */}
+      <h1 className={styles.title}>Bienvenido, {nombre}!</h1> {/* Muestra el nombre actualizado */}
       <h1 className={styles.title}>Juego de Restas</h1>
       <div className={styles.card}>
         <h2 className={styles.subtitle}>

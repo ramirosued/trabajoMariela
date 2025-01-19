@@ -1,15 +1,15 @@
+// context/NombreContext.js
+
 "use client";
 
 import { createContext, useContext, useState, useEffect } from 'react';
 
-// Crear el contexto
 const NombreContext = createContext();
 
-// Crear el proveedor para envolver la aplicación
 export const NombreProvider = ({ children }) => {
   const [nombre, setNombre] = useState('');
 
-  // Leer el nombre de localStorage si está disponible (solo en el cliente)
+  // Recupera el nombre de localStorage solo cuando la página ya esté renderizada (en el lado del cliente)
   useEffect(() => {
     const storedNombre = localStorage.getItem('nombre');
     if (storedNombre) {
@@ -17,7 +17,7 @@ export const NombreProvider = ({ children }) => {
     }
   }, []);
 
-  // Guardar el nombre en localStorage cada vez que cambie
+  // Guarda el nombre en localStorage cada vez que cambia
   useEffect(() => {
     if (nombre) {
       localStorage.setItem('nombre', nombre);
@@ -31,7 +31,6 @@ export const NombreProvider = ({ children }) => {
   );
 };
 
-// Crear un hook para usar el contexto
 export const useNombre = () => {
   const context = useContext(NombreContext);
   
