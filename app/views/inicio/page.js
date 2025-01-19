@@ -1,18 +1,17 @@
 "use client";
+import React, { useState } from 'react';
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import { useNombre } from '../../context/NombreContext'; // Cambié la ruta para asegurarme de que sea correcta
 import styles from './inicio.module.css'; // Importa el archivo CSS para el diseño
 
 export default function Inicio() {
-  const [nombre, setNombre] = useState('');
+  const [inputNombre, setInputNombre] = useState('');
+  const { nombre, setNombre } = useNombre(); // Accede al nombre y la función para actualizarlo
 
-  // Cuando el nombre cambia, guardarlo en localStorage
-  
-
-  // Función para manejar el submit del formulario y prevenir recarga de la página
+  // Función para manejar el submit del formulario y guardar el nombre
   const handleSubmit = (e) => {
-    e.preventDefault(); // Prevenir recarga de la página
-   
+    e.preventDefault();
+    setNombre(inputNombre); // Establece el nombre en el contexto
   };
 
   return (
@@ -22,32 +21,31 @@ export default function Inicio() {
         <input
           type="text"
           placeholder="Ingrese su nombre"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)} // Actualiza el nombre
+          value={inputNombre}
+          onChange={(e) => setInputNombre(e.target.value)} // Actualiza el nombre en el input
           required
           className={styles.input}
         />
       </form>
 
       <div className={styles.buttonsContainer}>
-        {/* Deshabilitar los enlaces si el nombre está vacío */}
         <Link href="/views/restas">
-          <button disabled={!nombre} className={styles.button}>
+          <button disabled={!inputNombre} className={styles.button}>
             Restas
           </button>
         </Link>
         <Link href="/views/sumas">
-          <button disabled={!nombre} className={styles.button}>
+          <button disabled={!inputNombre} className={styles.button}>
             Sumas
           </button>
         </Link>
         <Link href="/views/multiplicacion">
-          <button disabled={!nombre} className={styles.button}>
+          <button disabled={!inputNombre} className={styles.button}>
             Multiplicación
           </button>
         </Link>
         <Link href="/views/division">
-          <button disabled={!nombre} className={styles.button}>
+          <button disabled={!inputNombre} className={styles.button}>
             División
           </button>
         </Link>
