@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { useNombre } from '../../context/NombreContext'; // Importa el hook del contexto
 import styles from './inicio.module.css'; // Importa el archivo CSS para el diseño
@@ -16,10 +16,15 @@ export default function Inicio() {
     setNombre(value); // Actualiza el nombre en el contexto inmediatamente
   };
 
+  // Función para manejar el submit y prevenir que se recargue la página
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Previene la recarga de la página al presionar "Enter"
+  };
+
   return (
     <div className={styles.pageContainer}>
       <h2 className={styles.title}>Bienvenido a Calculando</h2>
-      <form className={styles.form}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <input
           type="text"
           placeholder="Ingrese su nombre"

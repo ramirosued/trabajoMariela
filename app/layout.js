@@ -1,5 +1,3 @@
-// layout.js
-
 import { NombreProvider } from './context/NombreContext'; // Importa el NombreProvider
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -23,7 +21,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <NombreProvider>  {/* Asegúrate de envolver toda la app con NombreProvider */}
+        {/* Envuelve toda la aplicación con NombreProvider para que el contexto esté disponible */}
+        <NombreProvider>
+          {/* El Menu debe estar dentro del provider, para poder acceder al contexto */}
+          {/* Aquí se renderiza el contenido de la página */}
           {children}
         </NombreProvider>
       </body>

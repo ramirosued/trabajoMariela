@@ -1,6 +1,5 @@
-// restas/page.js
-
 "use client";
+import Link from 'next/link';
 
 import { useState, useEffect } from "react";
 import { useNombre } from '../../context/NombreContext'; // Importa el hook del contexto
@@ -15,11 +14,17 @@ export default function Restas() {
   const { nombre } = useNombre(); // Accede al nombre desde el contexto
 
   const asignarNumero = () => {
-    const numA = Math.floor(Math.random() * 101); 
-    const numB = Math.floor(Math.random() * 101); 
+    let numA = Math.floor(Math.random() * 101); 
+    let numB = Math.floor(Math.random() * 101); 
+
+    // Aseguramos que numA siempre sea mayor que numB
+    if (numB > numA) {
+      [numA, numB] = [numB, numA];  // Intercambiamos los valores
+    }
+
     setA(numA);
     setB(numB);
-    setResultado(numA - numB);
+    setResultado(numA - numB);  // La resta siempre será positiva ahora
     setMensaje(""); 
     setRespuestaUsuario("");
   };
@@ -37,21 +42,43 @@ export default function Restas() {
     }
   };
 
-  if (a === null && b === null) {
-    asignarNumero();
-  }
+  // Si a y b son nulos, asignamos números
+  useEffect(() => {
+    if (a === null && b === null) {
+      asignarNumero();
+    }
+  }, [a, b]);
 
   return (
     <div className={styles.pageContainer}>
-      <h1 className={styles.title}>Bienvenido, {nombre}!</h1> {/* Muestra el nombre actualizado */}
-      <h1 className={styles.title}>Juego de Restas</h1>
+      <div className={styles.menuContainer}>
+        <div className={styles.menuButtons}>
+          <Link href="/views/restas">
+            <button className={styles.menuButton}>Restas</button>
+          </Link>
+          <Link href="/views/sumas">
+            <button className={styles.menuButton}>Sumas</button>
+          </Link>
+          <Link href="/views/multiplicacion">
+            <button className={styles.menuButton}>Multiplicación</button>
+          </Link>
+          <Link href="/views/division">
+            <button className={styles.menuButton}>División</button>
+          </Link>
+        </div>
+      </div>
+
+      <div className={styles.header}>
+        <h1 className={styles.title}>¡Bienvenido, {nombre}!</h1>
+        <h2 className={styles.subtitle}>Juego de Restas</h2>
+      </div>
+
       <div className={styles.card}>
-        <h2 className={styles.subtitle}>
-          Resuelve la siguiente operación:
-        </h2>
-        <p className={styles.operation}>
+        <h3 className={styles.operation}>Resuelve la operación:</h3>
+        <div className={styles.problem}>
           {a} - {b}
-        </p>
+        </div>
+
         <form onSubmit={verificarRespuesta} className={styles.form}>
           <input
             type="number"
@@ -62,6 +89,7 @@ export default function Restas() {
           />
           <input type="submit" value="Verificar" className={styles.submitButton} />
         </form>
+        
         {mensaje && <p className={styles.message}>{mensaje}</p>}
       </div>
     </div>
