@@ -7,18 +7,12 @@ export default function Inicio() {
   const [nombre, setNombre] = useState('');
 
   // Cuando el nombre cambia, guardarlo en localStorage
-  useEffect(() => {
-    if (nombre) {
-      localStorage.setItem('nombre', nombre);
-    }
-  }, [nombre]);
+  
 
   // Función para manejar el submit del formulario y prevenir recarga de la página
   const handleSubmit = (e) => {
     e.preventDefault(); // Prevenir recarga de la página
-    if (nombre) {
-      localStorage.setItem('nombre', nombre); // Asegurarse de que el nombre se guarde
-    }
+   
   };
 
   return (

@@ -12,12 +12,7 @@ export default function Restas() {
   const [nombre, setNombre] = useState("");
 
   // useEffect para leer el nombre desde localStorage
-  useEffect(() => {
-    const storedNombre = localStorage.getItem('nombre'); 
-    if (storedNombre) {
-      setNombre(storedNombre); 
-    }
-  }, []); 
+  
 
   const asignarNumero = () => {
     const numA = Math.floor(Math.random() * 101); 

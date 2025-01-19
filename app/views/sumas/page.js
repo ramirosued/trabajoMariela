@@ -11,12 +11,7 @@ export default function Sumas() {
   const [mensaje, setMensaje] = useState("");
   const [nombre, setNombre] = useState("");
 
-  useEffect(() => {
-      const storedNombre = localStorage.getItem('nombre'); 
-      if (storedNombre) {
-        setNombre(storedNombre); 
-      }
-    }, []); 
+ 
 
   const asignarNumero = () => {
     const numA = Math.floor(Math.random() * 101); 
