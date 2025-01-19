@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styles from './restas.module.css'; // Importamos el archivo CSS
 
 export default function Restas() {
@@ -9,6 +9,15 @@ export default function Restas() {
   const [resultado, setResultado] = useState(null);
   const [respuestaUsuario, setRespuestaUsuario] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const [nombre, setNombre] = useState("");
+
+  // useEffect para leer el nombre desde localStorage
+  useEffect(() => {
+    const storedNombre = localStorage.getItem('nombre'); 
+    if (storedNombre) {
+      setNombre(storedNombre); 
+    }
+  }, []); 
 
   const asignarNumero = () => {
     const numA = Math.floor(Math.random() * 101); 
@@ -39,6 +48,7 @@ export default function Restas() {
 
   return (
     <div className={styles.pageContainer}>
+      <h1 className={styles.title}>Bienvenido, {nombre}!</h1> {/* Mostrar nombre */}
       <h1 className={styles.title}>Juego de Restas</h1>
       <div className={styles.card}>
         <h2 className={styles.subtitle}>
