@@ -1,0 +1,130 @@
+.pageContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f9f9f9;
+    padding: 20px;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .header {
+    text-align: center;
+    margin-top: 120px; /* Ajuste para evitar superposición con el menú */
+    margin-bottom: 30px;
+  }
+  
+  .title {
+    font-size: 3rem;
+    font-weight: 600;
+    color: #333;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  
+  .subtitle {
+    font-size: 1.5rem;
+    color: #777;
+  }
+  
+  .menuContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    padding: 15px 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
+  }
+  
+  .menuButtons {
+    display: flex;
+    justify-content: space-evenly;
+  }
+  
+  .menuButton {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .menuButton:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+  }
+  
+  .card {
+    background-color: #fff;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+  }
+  
+  .operation {
+    font-size: 1.7rem;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 20px;
+  }
+  
+  .problem {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin: 20px 0;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1rem;
+    margin-bottom: 15px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .input:focus {
+    border-color: #007BFF;
+  }
+  
+  .submitButton {
+    background-color: #007BFF;
+    color: #fff;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .submitButton:hover {
+    background-color: #0056b3;
+  }
+  
+  .message {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    color: #FF6347;
+    font-weight: 500;
+  }
+  

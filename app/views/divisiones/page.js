@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from "react";
 import { useNombre } from '../../context/NombreContext'; // Importa el hook del contexto
-import styles from './restas.module.css'; // Importamos el archivo CSS
+import styles from './divisiones.module.css'; // Importamos el archivo CSS
 
 export default function Restas() {
   const [a, setA] = useState(null);
@@ -13,18 +13,14 @@ export default function Restas() {
   const { nombre } = useNombre(); // Accede al nombre desde el contexto
 
   const asignarNumero = () => {
-    let numA = Math.floor(Math.random() * 101); 
-    let numB = Math.floor(Math.random() * 101); 
-
-    // Aseguramos que numA siempre sea mayor que numB
-    if (numB > numA) {
-      [numA, numB] = [numB, numA];  // Intercambiamos los valores
-    }
-
+    const numB = Math.floor(Math.random() * 13) + 1; // b entre 1 y 10
+    const cociente = Math.floor(Math.random() * 13) + 1; // Cociente entre 1 y 10
+    const numA = numB * cociente; // Asegura que la división sea exacta
+  
     setA(numA);
     setB(numB);
-    setResultado(numA - numB);  // La resta siempre será positiva ahora
-    setMensaje(""); 
+    setResultado(cociente); // El resultado esperado es el cociente
+    setMensaje("");
     setRespuestaUsuario("");
   };
 
@@ -69,13 +65,13 @@ export default function Restas() {
 
       <div className={styles.header}>
         <h1 className={styles.title}>¡Bienvenido, {nombre}!</h1>
-        <h2 className={styles.subtitle}>Juego de Restas</h2>
+        <h2 className={styles.subtitle}>Juego de Divisiones</h2>
       </div>
 
       <div className={styles.card}>
         <h3 className={styles.operation}>Resuelve la operación:</h3>
         <div className={styles.problem}>
-          {a} - {b}
+          {a} : {b}
         </div>
 
         <form onSubmit={verificarRespuesta} className={styles.form}>

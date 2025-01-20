@@ -1,5 +1,5 @@
 "use client";
-
+import Link from 'next/link';
 import { useState, useEffect } from "react";
 import styles from './sumas.module.css'; // Importamos el archivo CSS
 import { useNombre } from '../../context/NombreContext'; // Importa el hook del contexto
@@ -44,15 +44,34 @@ export default function Sumas() {
 
   return (
     <div className={styles.pageContainer}>
-      <h1 className={styles.title}>Bienvenido, {nombre}!</h1> {/* Mostrar nombre */}
-      <h1 className={styles.title}>Juego de Sumas</h1>
+      <div className={styles.menuContainer}>
+        <div className={styles.menuButtons}>
+          <Link href="/views/restas">
+            <button className={styles.menuButton}>Restas</button>
+          </Link>
+          <Link href="/views/sumas">
+            <button className={styles.menuButton}>Sumas</button>
+          </Link>
+          <Link href="/views/multiplicaciones">
+            <button className={styles.menuButton}>Multiplicación</button>
+          </Link>
+          <Link href="/views/divisiones">
+            <button className={styles.menuButton}>División</button>
+          </Link>
+        </div>
+      </div>
+
+      <div className={styles.header}>
+        <h1 className={styles.title}>¡Bienvenido, {nombre}!</h1>
+        <h2 className={styles.subtitle}>Juego de Sumas</h2>
+      </div>
+
       <div className={styles.card}>
-        <h2 className={styles.subtitle}>
-          Resuelve la siguiente operación:
-        </h2>
-        <p className={styles.operation}>
+        <h3 className={styles.operation}>Resuelve la operación:</h3>
+        <div className={styles.problem}>
           {a} + {b}
-        </p>
+        </div>
+
         <form onSubmit={verificarRespuesta} className={styles.form}>
           <input
             type="number"
@@ -63,6 +82,7 @@ export default function Sumas() {
           />
           <input type="submit" value="Verificar" className={styles.submitButton} />
         </form>
+        
         {mensaje && <p className={styles.message}>{mensaje}</p>}
       </div>
     </div>
