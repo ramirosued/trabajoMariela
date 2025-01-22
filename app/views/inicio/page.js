@@ -46,12 +46,12 @@ export default function Inicio() {
             Sumas
           </button>
         </Link>
-        <Link href="/views/multiplicacion">
+        <Link href="/views/multiplicaciones">
           <button disabled={!inputNombre} className={styles.button}>
             Multiplicación
           </button>
         </Link>
-        <Link href="/views/division">
+        <Link href="/views/divisiones">
           <button disabled={!inputNombre} className={styles.button}>
             División
           </button>
