@@ -5,17 +5,19 @@ import { useNombre } from '../../context/NombreContext'; // Importa el hook del 
 import styles from './restas.module.css'; // Importamos el archivo CSS
 
 export default function Restas() {
+  const { nombre, puntos, setPuntos } = useNombre(); // Accede al nombre y puntos desde el contexto global
+
   const [a, setA] = useState(null);
   const [b, setB] = useState(null);
   const [resultado, setResultado] = useState(null);
   const [respuestaUsuario, setRespuestaUsuario] = useState("");
   const [mensaje, setMensaje] = useState("");
-  const { nombre } = useNombre(); // Accede al nombre desde el contexto
+  const [tiempoRestante, setTiempoRestante] = useState(20); // Inicializa el temporizador en 20 segundos
 
   const asignarNumero = () => {
+    setTiempoRestante(20)
     let numA = Math.floor(Math.random() * 101); 
     let numB = Math.floor(Math.random() * 101); 
-
     // Aseguramos que numA siempre sea mayor que numB
     if (numB > numA) {
       [numA, numB] = [numB, numA];  // Intercambiamos los valores
@@ -29,17 +31,34 @@ export default function Restas() {
   };
 
   const verificarRespuesta = (e) => {
-    e.preventDefault();
+    e.preventDefault(); // Evita recargar la página
     if (parseInt(respuestaUsuario, 10) === resultado) {
-      setMensaje("¡Correcto! 🎉");
+      setMensaje(`¡Correcto! 🎉 +${tiempoRestante} puntos`);
+      setPuntos(puntos + tiempoRestante); // Suma los puntos basados en el tiempo restante
       setTimeout(() => {
         setMensaje("");
-        asignarNumero(); // Genera nuevos números después de 2 segundos
+        asignarNumero(); // Genera nuevos números
       }, 2000);
     } else {
       setMensaje("Incorrecto. Inténtalo de nuevo.");
+      setPuntos(puntos - 10); 
+
     }
   };
+
+  useEffect(() => {
+    if (tiempoRestante > 0) {
+      const timer = setTimeout(() => {
+        setTiempoRestante(tiempoRestante - 1);
+      }, 1000);
+      return () => clearTimeout(timer); // Limpia el temporizador al desmontar el componente
+    } else {
+      setMensaje("⏰ ¡Se acabó el tiempo!, resta 10 puntos");
+      setTimeout(() => {
+        asignarNumero(); // Genera nuevos números después de 2 segundos
+      }, 2000);
+    }
+  }, [tiempoRestante]);
 
   // Si a y b son nulos, asignamos números
   useEffect(() => {
@@ -70,6 +89,9 @@ export default function Restas() {
       <div className={styles.header}>
         <h1 className={styles.title}>¡Bienvenido, {nombre}!</h1>
         <h2 className={styles.subtitle}>Juego de Restas</h2>
+        <p className={styles.points}>Puntos: {puntos}</p> {/* Muestra los puntos acumulados */}
+        <p className={styles.timer}>⏳ Tiempo restante: {tiempoRestante}s</p> {/* Muestra el temporizador */}
+
       </div>
 
       <div className={styles.card}>

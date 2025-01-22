@@ -128,3 +128,10 @@
     font-weight: 500;
   }
   
+  .timer {
+    font-size: 1.2rem;
+    color: #FF6347; /* Rojo para destacar el temporizador */
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  

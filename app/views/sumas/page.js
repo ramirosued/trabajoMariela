@@ -1,49 +1,71 @@
 "use client";
 import Link from 'next/link';
 import { useState, useEffect } from "react";
-import styles from './sumas.module.css'; // Importamos el archivo CSS
-import { useNombre } from '../../context/NombreContext'; // Importa el hook del contexto
+import { useNombre } from '../../context/NombreContext'; // Importa el contexto global
+import styles from './sumas.module.css'; // Importa los estilos CSS
 
 export default function Sumas() {
-  const { nombre } = useNombre(); // Accede al nombre desde el contexto global
-
+  const { nombre, puntos, setPuntos } = useNombre(); // Accede al nombre y puntos desde el contexto global
   const [a, setA] = useState(null);
   const [b, setB] = useState(null);
   const [resultado, setResultado] = useState(null);
   const [respuestaUsuario, setRespuestaUsuario] = useState("");
   const [mensaje, setMensaje] = useState("");
+  const [tiempoRestante, setTiempoRestante] = useState(20); // Inicializa el temporizador en 20 segundos
 
- 
-
+  // Genera nuevos números y calcula el resultado
   const asignarNumero = () => {
+    setTiempoRestante(20); // Reinicia el temporizador
     const numA = Math.floor(Math.random() * 101); 
     const numB = Math.floor(Math.random() * 101); 
     setA(numA);
     setB(numB);
     setResultado(numA + numB);
-    setMensaje(""); 
+    setMensaje("");
     setRespuestaUsuario("");
   };
 
+  // Verifica si la respuesta es correcta
   const verificarRespuesta = (e) => {
-    e.preventDefault(); // Evita que el formulario recargue la página
+    e.preventDefault(); // Evita recargar la página
     if (parseInt(respuestaUsuario, 10) === resultado) {
-      setMensaje("¡Correcto! 🎉");
+      setMensaje(`¡Correcto! 🎉 +${tiempoRestante} puntos`);
+      setPuntos(puntos + tiempoRestante); // Suma los puntos basados en el tiempo restante
       setTimeout(() => {
         setMensaje("");
-        asignarNumero(); // Genera nuevos números después de 2 segundos
+        asignarNumero(); // Genera nuevos números
       }, 2000);
     } else {
       setMensaje("Incorrecto. Inténtalo de nuevo.");
-    }
+     }
   };
 
-  if (a === null && b === null) {
-    asignarNumero();
-  }
+  // Maneja el temporizador
+  useEffect(() => {
+    if (tiempoRestante > 0) {
+      const timer = setTimeout(() => {
+        setTiempoRestante(tiempoRestante - 1);
+      }, 1000);
+      return () => clearTimeout(timer); // Limpia el temporizador al desmontar el componente
+    } else {
+      setMensaje("⏰ ¡Se acabó el tiempo!, resta 10 puntos");
+      setPuntos(puntos - 10)
+      setTimeout(() => {
+        asignarNumero(); // Genera nuevos números después de 2 segundos
+      }, 2000);
+    }
+  }, [tiempoRestante]);
+
+  // Asigna números al cargar el componente
+  useEffect(() => {
+    if (a === null && b === null) {
+      asignarNumero();
+    }
+  }, [a, b]);
 
   return (
     <div className={styles.pageContainer}>
+      {/* Menú de navegación */}
       <div className={styles.menuContainer}>
         <div className={styles.menuButtons}>
           <Link href="/views/restas">
@@ -61,17 +83,22 @@ export default function Sumas() {
         </div>
       </div>
 
+      {/* Título y puntos */}
       <div className={styles.header}>
         <h1 className={styles.title}>¡Bienvenido, {nombre}!</h1>
         <h2 className={styles.subtitle}>Juego de Sumas</h2>
+        <p className={styles.points}>Puntos: {puntos}</p> {/* Muestra los puntos acumulados */}
+        <p className={styles.timer}>⏳ Tiempo restante: {tiempoRestante}s</p> {/* Muestra el temporizador */}
       </div>
 
+      {/* Tarjeta con el problema de suma */}
       <div className={styles.card}>
         <h3 className={styles.operation}>Resuelve la operación:</h3>
         <div className={styles.problem}>
           {a} + {b}
         </div>
 
+        {/* Formulario para ingresar la respuesta */}
         <form onSubmit={verificarRespuesta} className={styles.form}>
           <input
             type="number"
@@ -83,6 +110,7 @@ export default function Sumas() {
           <input type="submit" value="Verificar" className={styles.submitButton} />
         </form>
         
+        {/* Mensaje de retroalimentación */}
         {mensaje && <p className={styles.message}>{mensaje}</p>}
       </div>
     </div>

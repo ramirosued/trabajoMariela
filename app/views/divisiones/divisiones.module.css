@@ -128,3 +128,24 @@
     font-weight: 500;
   }
   
+  .timer {
+    font-size: 1.2rem;
+    color: #FF6347; /* Rojo para destacar el temporizador */
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .toggleButton {
+    margin: 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #ccc;
+    color: #000;
+  }
+  .toggleButton.active {
+    background-color: #4caf50; /* Verde */
+    color: #fff;
+  }
+  
