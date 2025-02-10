@@ -5,7 +5,7 @@ import { useNombre } from '../../context/NombreContext'; // Importa el hook del 
 import styles from './restas.module.css'; // Importamos el archivo CSS
 
 export default function Restas() {
-  const { nombre, puntos, setPuntos } = useNombre(); // Accede al nombre y puntos desde el contexto global
+  const { nombre, puntos, setPuntos, modoJuego } = useNombre(); // Accede al nombre y puntos desde el contexto global
 
   const [a, setA] = useState(null);
   const [b, setB] = useState(null);
@@ -41,7 +41,6 @@ export default function Restas() {
       }, 2000);
     } else {
       setMensaje("Incorrecto. Inténtalo de nuevo.");
-      setPuntos(puntos - 10); 
 
     }
   };
@@ -54,6 +53,7 @@ export default function Restas() {
       return () => clearTimeout(timer); // Limpia el temporizador al desmontar el componente
     } else {
       setMensaje("⏰ ¡Se acabó el tiempo!, resta 10 puntos");
+      setPuntos(puntos - 10); 
       setTimeout(() => {
         asignarNumero(); // Genera nuevos números después de 2 segundos
       }, 2000);
@@ -71,6 +71,9 @@ export default function Restas() {
     <div className={styles.pageContainer}>
       <div className={styles.menuContainer}>
         <div className={styles.menuButtons}>
+        <Link href="/views/inicio">
+            <button className={styles.menuButton}>Home</button>
+          </Link>
           <Link href="/views/restas">
             <button className={styles.menuButton}>Restas</button>
           </Link>
@@ -88,10 +91,13 @@ export default function Restas() {
 
       <div className={styles.header}>
         <h1 className={styles.title}>¡Bienvenido, {nombre}!</h1>
-        <h2 className={styles.subtitle}>Juego de Restas</h2>
-        <p className={styles.points}>Puntos: {puntos}</p> {/* Muestra los puntos acumulados */}
-        <p className={styles.timer}>⏳ Tiempo restante: {tiempoRestante}s</p> {/* Muestra el temporizador */}
-
+        <h2 className={styles.subtitle}>Juego de Sumas</h2>
+          {modoJuego && (
+             <>
+              <p className={styles.points}>Puntos: {puntos}</p>
+              <p className={styles.timer}>⏳ Tiempo restante: {tiempoRestante}s</p>
+            </>
+          )}
       </div>
 
       <div className={styles.card}>

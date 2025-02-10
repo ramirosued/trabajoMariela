@@ -5,7 +5,7 @@ import { useNombre } from '../../context/NombreContext'; // Importa el contexto 
 import styles from './sumas.module.css'; // Importa los estilos CSS
 
 export default function Sumas() {
-  const { nombre, puntos, setPuntos } = useNombre(); // Accede al nombre y puntos desde el contexto global
+  const { nombre, puntos, setPuntos, modoJuego } = useNombre(); // Accede al nombre y puntos desde el contexto global
   const [a, setA] = useState(null);
   const [b, setB] = useState(null);
   const [resultado, setResultado] = useState(null);
@@ -68,6 +68,9 @@ export default function Sumas() {
       {/* Menú de navegación */}
       <div className={styles.menuContainer}>
         <div className={styles.menuButtons}>
+        <Link href="/views/inicio">
+            <button className={styles.menuButton}>Home</button>
+          </Link>
           <Link href="/views/restas">
             <button className={styles.menuButton}>Restas</button>
           </Link>
@@ -83,12 +86,15 @@ export default function Sumas() {
         </div>
       </div>
 
-      {/* Título y puntos */}
       <div className={styles.header}>
         <h1 className={styles.title}>¡Bienvenido, {nombre}!</h1>
         <h2 className={styles.subtitle}>Juego de Sumas</h2>
-        <p className={styles.points}>Puntos: {puntos}</p> {/* Muestra los puntos acumulados */}
-        <p className={styles.timer}>⏳ Tiempo restante: {tiempoRestante}s</p> {/* Muestra el temporizador */}
+          {modoJuego && (
+             <>
+              <p className={styles.points}>Puntos: {puntos}</p>
+              <p className={styles.timer}>⏳ Tiempo restante: {tiempoRestante}s</p>
+            </>
+          )}
       </div>
 
       {/* Tarjeta con el problema de suma */}

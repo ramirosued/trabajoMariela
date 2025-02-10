@@ -1,61 +1,47 @@
-"use client";
-
-import React, { useState } from 'react';
-import Link from 'next/link';
-import { useNombre } from '../../context/NombreContext'; // Importa el hook del contexto
-import styles from './inicio.module.css'; // Importa el archivo CSS para el diseño
+"use client"
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
+import { useNombre } from "../../context/NombreContext";
+import styles from "./inicio.module.css";
 
 export default function Inicio() {
-  const [inputNombre, setInputNombre] = useState('');
-  const { nombre, setNombre } = useNombre(); // Accede al nombre y la función para actualizarlo
+  const [inputNombre, setInputNombre] = useState("");
+  const { nombre, setNombre, modoJuego, setModoJuego } = useNombre();
+  
+  useEffect(() => {
+    setModoJuego(false); // Se asegura de que modoJuego sea false al volver a Inicio
+  }, []);
 
-  // Función para manejar el cambio en el input y actualizar el nombre en el contexto
   const handleChange = (e) => {
     const value = e.target.value;
-    setInputNombre(value); // Actualiza el estado local del input
-    setNombre(value); // Actualiza el nombre en el contexto inmediatamente
+    setInputNombre(value);
+    setNombre(value);
   };
 
-  // Función para manejar el submit y prevenir que se recargue la página
   const handleSubmit = (e) => {
-    e.preventDefault(); // Previene la recarga de la página al presionar "Enter"
+    e.preventDefault();
   };
 
   return (
-    <div className={styles.pageContainer}>
+    <div className={`${styles.pageContainer} ${modoJuego ? styles.modoJuego : ""}`}>
       <h2 className={styles.title}>Bienvenido a Calculando</h2>
       <form onSubmit={handleSubmit} className={styles.form}>
-        <input
-          type="text"
-          placeholder="Ingrese su nombre"
-          value={inputNombre}
-          onChange={handleChange} // Actualiza el nombre en el contexto directamente al cambiar el input
-          required
-          className={styles.input}
-        />
+        <input type="text" placeholder="Ingrese su nombre" value={inputNombre} onChange={handleChange} required className={styles.input} />
       </form>
 
       <div className={styles.buttonsContainer}>
-        <Link href="/views/restas">
-          <button disabled={!inputNombre} className={styles.button}>
-            Restas
-          </button>
-        </Link>
-        <Link href="/views/sumas">
-          <button disabled={!inputNombre} className={styles.button}>
-            Sumas
-          </button>
-        </Link>
-        <Link href="/views/multiplicaciones">
-          <button disabled={!inputNombre} className={styles.button}>
-            Multiplicación
-          </button>
-        </Link>
-        <Link href="/views/divisiones">
-          <button disabled={!inputNombre} className={styles.button}>
-            División
-          </button>
-        </Link>
+        <Link href="/views/restas"><button disabled={!inputNombre} className={styles.button}>Restas</button></Link>
+        <Link href="/views/sumas"><button disabled={!inputNombre} className={styles.button}>Sumas</button></Link>
+        <Link href="/views/multiplicaciones"><button disabled={!inputNombre} className={styles.button}>Multiplicación</button></Link>
+        <Link href="/views/divisiones"><button disabled={!inputNombre} className={styles.button}>División</button></Link>
+      </div>
+
+      {/* Botón de Modo Juego */}
+      <div className={styles.botonJuegoContainer}>
+        <p className={styles.s}>Modo Juego</p>
+        <button className={`${styles.botonJuego} ${modoJuego ? styles.activo : ""}`} onClick={() => setModoJuego(!modoJuego)}>
+          {modoJuego ? "🎮 ON" : "🎮 OFF"}
+        </button>
       </div>
     </div>
   );

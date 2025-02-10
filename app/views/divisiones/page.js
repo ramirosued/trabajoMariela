@@ -5,7 +5,7 @@ import { useNombre } from '../../context/NombreContext'; // Importa el hook del 
 import styles from './divisiones.module.css'; // Importamos el archivo CSS
 
 export default function Divisiones() {
-  const { nombre, puntos, setPuntos } = useNombre(); // Accede al nombre y puntos desde el contexto global
+  const { nombre, puntos, setPuntos, modoJuego } = useNombre(); // Accede al nombre y puntos desde el contexto global
   const [a, setA] = useState(null);
   const [b, setB] = useState(null);
   const [resultado, setResultado] = useState(null);
@@ -24,7 +24,7 @@ export default function Divisiones() {
       cociente = Math.floor(Math.random() * 13) + 1; // Cociente entre 1 y 12
       numA = numB * cociente; // Asegura que la división sea exacta
     } else {
-      numB = Math.floor(Math.random() * 13) + 1; // b como número decimal entre 1 y 12
+      numB = Math.floor(Math.random() * 15) + 1; // b como número decimal entre 1 y 12
       numA = Math.floor(Math.random() * 13) + 1; // a como número decimal entre 1 y 12
       cociente = (numA / numB).toFixed(2); // Calcula un cociente decimal con 2 decimales
     }
@@ -81,6 +81,9 @@ export default function Divisiones() {
     <div className={styles.pageContainer}>
       <div className={styles.menuContainer}>
         <div className={styles.menuButtons}>
+        <Link href="/views/inicio">
+            <button className={styles.menuButton}>Home</button>
+          </Link>
           <Link href="/views/restas">
             <button className={styles.menuButton}>Restas</button>
           </Link>
@@ -98,9 +101,13 @@ export default function Divisiones() {
 
       <div className={styles.header}>
         <h1 className={styles.title}>¡Bienvenido, {nombre}!</h1>
-        <h2 className={styles.subtitle}>Juego de Divisiones</h2>
-        <p className={styles.points}>Puntos: {puntos}</p> {/* Muestra los puntos acumulados */}
-        <p className={styles.timer}>⏳ Tiempo restante: {tiempoRestante}s</p> {/* Muestra el temporizador */}
+        <h2 className={styles.subtitle}>Juego de Sumas</h2>
+          {modoJuego && (
+             <>
+              <p className={styles.points}>Puntos: {puntos}</p>
+              <p className={styles.timer}>⏳ Tiempo restante: {tiempoRestante}s</p>
+            </>
+          )}
       </div>
 
       <div className={styles.toggleContainer}>
