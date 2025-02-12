@@ -44,7 +44,9 @@ export default function Sumas() {
   useEffect(() => {
     if (tiempoRestante > 0) {
       const timer = setTimeout(() => {
-        setTiempoRestante(tiempoRestante - 1);
+        if(modoJuego){
+          setTiempoRestante(tiempoRestante - 1);
+        }
       }, 1000);
       return () => clearTimeout(timer); // Limpia el temporizador al desmontar el componente
     } else {
