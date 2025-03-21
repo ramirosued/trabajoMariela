@@ -74,11 +74,7 @@ export default function Inicio() {
         </Link>
       </div>
 
-      {/* Botón de Guardar Puntos */}
-      <button onClick={guardarPuntos} className={styles.button}>
-        Guardar Puntos
-      </button>
-
+    
       {/* Botón de Modo Juego */}
       <div className={styles.botonJuegoContainer}>
         <p className={styles.s}>Modo Juego</p>
