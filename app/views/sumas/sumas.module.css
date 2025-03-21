@@ -1,88 +1,89 @@
+/* Estilos para el juego de sumas */
 .pageContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
-  background-color: #f9f9f9;
-  padding: 20px;
-  font-family: 'Poppins', sans-serif;
+  justify-content: center;
+  height: 100vh;
+  color: white;
+  font-family: 'Arial', sans-serif;
+  text-align: center;
+  position: relative;
 }
 
 .header {
-  text-align: center;
-  margin-top: 120px; /* Ajuste para evitar superposición con el menú */
-  margin-bottom: 30px;
+  color: black;
+  margin-bottom: 20px;
+  position: relative;
+  width: 100%;
+}
+
+.questionCounter {
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 5px 10px;
+  border-radius: 8px;
 }
 
 .title {
-  font-size: 3rem;
-  font-weight: 600;
-  color: #333;
-  text-transform: uppercase;
-  margin-bottom: 10px;
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
 .subtitle {
   font-size: 1.5rem;
-  color: #777;
-}
-
-.menuContainer {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #fff;
-  padding: 15px 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Asegura que el menú esté por encima de otros elementos */
-}
-
-.menuButtons {
-  display: flex;
-  justify-content: space-evenly;
-}
-
-.menuButton {
-  background-color: #4CAF50;
-  color: #fff;
-  padding: 12px 25px;
-  border: none;
-  border-radius: 8px;
-  font-size: 1.1rem;
   font-weight: 500;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.menuButton:hover {
-  background-color: #45a049;
-  transform: scale(1.05);
+.points {
+  font-size: 1.2rem;
+  font-style: italic;
+  text-align: right; /* Alinea el texto a la derecha */
+  width: 100%; /* Asegura que ocupe todo el ancho disponible */
+  padding-right: 20px; /* Agrega un poco de espacio a la derecha */
 }
 
 .card {
-  background-color: #fff;
-  padding: 40px;
-  border-radius: 10px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  background: white;
+  color: black;
+  padding: 50px 30px;  /* Aumenta el padding vertical (arriba y abajo) */
+  border-radius: 16px;
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+  width: 95%;
+  max-width: 600px;  /* Hace la tarjeta más ancha */
+  height: auto;  /* Permite que la altura sea flexible según el contenido */
   text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .operation {
-  font-size: 1.7rem;
-  font-weight: 600;
-  color: #555;
-  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .problem {
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   font-weight: bold;
-  color: #333;
-  margin: 20px 0;
+  margin: 10px 0;
+  color: #2E7D32;
 }
 
 .form {
@@ -92,45 +93,67 @@
 }
 
 .input {
-  width: 100%;
   padding: 12px;
   font-size: 1.1rem;
-  margin-bottom: 15px;
-  border: 2px solid #ccc;
-  border-radius: 8px;
+  width: 85%;
+  max-width: 220px;
+  text-align: center;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
   outline: none;
-  transition: border-color 0.3s ease;
+  transition: 0.3s;
 }
 
 .input:focus {
-  border-color: #007BFF;
+  border-color: #2E7D32;
+  box-shadow: 0 0 10px rgba(46, 125, 50, 0.5);
 }
 
 .submitButton {
-  background-color: #007BFF;
-  color: #fff;
+  margin-top: 15px;
   padding: 12px 25px;
   font-size: 1.1rem;
+  font-weight: bold;
+  color: white;
+  background: #4CAF50;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: 0.3s;
 }
 
 .submitButton:hover {
-  background-color: #0056b3;
+  background: #2E7D32;
 }
 
 .message {
-  margin-top: 15px;
-  font-size: 1.2rem;
-  color: #FF6347;
-  font-weight: 500;
+  margin-top: 10px;
+  font-size: 1.3rem;
+  font-weight: bold;
 }
 
-.timer {
-  font-size: 1.2rem;
-  color: #FF6347; /* Rojo para destacar el temporizador */
-  font-weight: bold;
-  margin-top: 10px;
+@media (max-width: 600px) {
+  .title {
+    font-size: 1.8rem;
+  }
+  .subtitle {
+    font-size: 1.2rem;
+  }
+  .points {
+    font-size: 1rem;
+  }
+  .problem {
+    font-size: 1.8rem;
+  }
+  .input {
+    font-size: 1rem;
+  }
+  .submitButton {
+    font-size: 1rem;
+  }
+  .questionCounter {
+    font-size: 1rem;
+    top: 5px;
+    right: 10px;
+  }
 }
